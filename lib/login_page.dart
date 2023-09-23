@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:passwordfield/passwordfield.dart';
 
 class login extends StatefulWidget {
   const login({super.key});
@@ -33,6 +34,7 @@ class _loginState extends State<login> {
                     )),
                 SizedBox(height: 20,),
                 login_input(),
+                SizedBox(height: 20,),
               ],
             ),
           ),
@@ -43,43 +45,58 @@ class _loginState extends State<login> {
 
   Widget login_input(){
 
-    return Container(
-      child: TextField(
-        maxLength: 15,
-        controller: TextEditingController(text: data),
-        decoration: InputDecoration(
-          hintText: 'Enter phone number',
-          labelText: 'Phone',
-          filled: true,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            borderSide: BorderSide(
-              width: 0,style: BorderStyle.none
-            )
+    return Column(
+      children: [
+        TextField(
+          maxLength: 15,
+          controller: TextEditingController(text: data),
+          decoration: InputDecoration(
+              hintText: 'Enter phone number',
+              labelText: 'Phone',
+              filled: true,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderSide: BorderSide(
+                      width: 0,style: BorderStyle.none
+                  )
+              ),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderSide: BorderSide(
+                      width: 1.2
+                  )
+              ),
+              prefixIcon: Icon(
+                  Icons.phone
+              ),
+              suffix: IconButton(
+                icon: Icon(Icons.clear),
+                onPressed: (){
+                  setState(() {
+                    data = "";
+                  });
+                },
+              )
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            borderSide: BorderSide(
-              width: 1.2
-            )
-          ),
-          prefixIcon: Icon(
-            Icons.phone
-          ),
-          suffix: IconButton(
-            icon: Icon(Icons.clear),
-            onPressed: (){
-              setState(() {
-                data = "";
-              });
-            },
-          )
+          onChanged: (values) {
+            data = values;
+          },
+          keyboardType: TextInputType.phone,
         ),
-        onChanged: (values) {
-          data = values;
-        },
-        keyboardType: TextInputType.phone,
-      ),
+        PasswordField(
+          maxLength: 15,
+          controller: TextEditingController(text: data),
+          passwordDecoration: PasswordDecoration(),
+          hintText: 'Enter Password',
+          floatingText: 'Password',
+          border: PasswordBorder(
+
+          ),
+          onChanged: (values) {
+            data = values;
+          },
+        ),
+      ],
     );
   }
 }
